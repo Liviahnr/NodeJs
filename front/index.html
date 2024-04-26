@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>List of agents</h1>
+    <div id="agents"></div>
+    <form>
+      <input
+        type="text"
+        name="agent"
+        placeholder="Name"
+        id="input-agent-name"
+      />
+      <input type="text" name="agent" placeholder="Age" id="input-agent-age" />
+
+      <button type="button" onclick="sendAgent()">Send agent</button>
+    </form>
+    <script>
+      // fetch data from api and display it
+      fetch("http://localhost:3000/agents")
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+
+          let agentList = document.querySelector("#agents");
+          data.forEach((agent) => {
+            console.log(agent);
+            agentList.innerHTML += `
+						   <small>${agent.id}</small>
+						<a href="agent.html?id=${agent.id}">
+                    <h2>${agent.name}</h2>
+					</a>
+                `;
+          });
+        });
+    </script>
+    <script src="./SendAgent.js"></script>
+  </body>
+</html>
